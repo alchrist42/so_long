@@ -5,6 +5,11 @@ SRCS_FILES	= 	so_long.c \
 				parcer.c \
 				parcer_check_map.c \
 				parcer_load_file.c \
+				game.c \
+				draws.c \
+				hookes.c \
+				load_resurses.c \
+				moves.c \
 				raise_error.c \
 				gnl/get_next_line.c \
 

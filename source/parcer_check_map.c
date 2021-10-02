@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:55:00 by alchrist          #+#    #+#             */
-/*   Updated: 2021/09/19 19:57:08 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/10/02 21:31:18 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ void	check_map_walls(t_map *map)
 	size_t	i;
 
 	i = 0;
-	while (i < map->cells) // check left right
+	while (i < map->cells)
 	{
-		if (map->field[i] != '1' || map->field[i + map->cols - 1] != '1')
+		if (map->field[i] != WALL || map->field[i + map->cols - 1] != WALL)
 			ft_raise_error("Hole in left or right walls");
 		i += map->cols;
 	}
 	i = 0;
 	while (++i < map->cols)
-		if (map->field[i] != '1' || map->field[map->cells - i] != '1')
+		if (map->field[i] != WALL || map->field[map->cells - i] != WALL)
 			ft_raise_error("Hole in up or down walls");
 }
 
 /*
-**		@brief		check player, exit and walls in the map
+**		@brief		check player, exit and fish in the map
 */
 void	check_map_content(t_map *map)
 {
@@ -44,13 +44,13 @@ void	check_map_content(t_map *map)
 	{
 		if (!ft_strchr("01PEC", map->field[i]))
 			ft_raise_error("Incorrect symbol in the map");
-		if (map->field[i] == 'P' && map->plr)
+		if (map->field[i] == PLR && map->plr)
 			ft_raise_error("Double player in map");
-		if (map->field[i] == 'P')
+		if (map->field[i] == PLR)
 			map->plr = i;
-		if (map->field[i] == 'E')
+		if (map->field[i] == EXIT)
 			map->exit++;
-		if (map->field[i] == 'C')
+		if (map->field[i] == FISH)
 			map->fish++;
 	}
 	if (!map->plr || !map->exit || !map->fish)

@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:55:00 by alchrist          #+#    #+#             */
-/*   Updated: 2021/09/19 19:54:01 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/10/02 21:33:11 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	open_map_file(int argc, char **argv)
 {
 	int	len_fname;
 	int	fd;
-	
+
 	if (argc != 2)
 		ft_raise_error("Incorrect arguments, need only one");
 	len_fname = ft_strlen(argv[1]);
@@ -38,7 +38,7 @@ void	get_map_size(t_map *map, int fd, int res)
 {
 	char	*line;
 	bool	last_line;
-	
+
 	line = NULL;
 	last_line = false;
 	while (res)
@@ -46,15 +46,17 @@ void	get_map_size(t_map *map, int fd, int res)
 		res = get_next_line(fd, &line);
 		if (res < 0)
 			ft_raise_error(0);
-		if (ft_strlen(line) > MAX_WIDTH)
-			ft_raise_error("Too long width line in map");
+		if (ft_strlen(line) > map->max_width)
+			ft_raise_error("Too long width line in map for this resolution");
 		if (!map->cols)
 			map->cols = ft_strlen(line);
 		if (!ft_strlen(line))
 			last_line = true;
-		if (ft_strlen(line) && last_line && map->cols != ft_strlen(line))
+		if (ft_strlen(line) && (last_line || map->cols != ft_strlen(line)))
 			ft_raise_error("Different line lenghts in the map");
 		map->rows += !last_line;
+		if (map->rows > map->max_height)
+			ft_raise_error("Too tall map for this resolution");
 		free(line);
 	}
 	close(fd);
@@ -77,8 +79,9 @@ void	write_map(t_map *map, int fd)
 	while (i < map->rows)
 	{
 		get_next_line(fd, &line);
-		ft_memcpy(map->field + i++ * map->cols, line, map->cols);
+		ft_memcpy(map->field + i * map->cols, line, map->cols);
 		free(line);
+		i++;
 	}
 	close(fd);
 }
