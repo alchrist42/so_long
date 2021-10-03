@@ -6,12 +6,12 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:35:56 by alchrist          #+#    #+#             */
-/*   Updated: 2021/10/03 05:28:54 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:15:46 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <fcntl.h> 
 
@@ -24,6 +24,8 @@
 # include "get_next_line.h"
 
 # define XPM_SIZE	64
+# define EXIT_TIME	256
+# define SCLR		0x00FFAAAA
 
 # define SPACE	'0'
 # define WALL	'1'
@@ -42,7 +44,6 @@
 # define EXIT3_XPM	"./textures/exit3.xpm"
 # define SPRITE_XPM	"./textures/girl.xpm"
 # define ENEMY_XPM	"./textures/car"
-
 
 # define KEY_W 13
 # define KEY_S 1
@@ -72,6 +73,8 @@ typedef struct s_xpm
 	void	*exit[3];
 	void	*sprite;
 	void	*cars[8];
+	void	*black_square;
+	void	*score_cell;
 }	t_xpm;
 
 typedef struct s_mlx
@@ -83,11 +86,10 @@ typedef struct s_mlx
 	size_t	heigth;
 	int		res_x;
 	int		res_y;
-	int		time_cntr;
-	int		remain_frames;
+	int		frame;
+	bool	bear_on_fire;
 	t_map	*map;
 	t_xpm	*xpm;
-
 }	t_mlx;
 
 void	ft_raise_error(char *s);
@@ -106,8 +108,12 @@ void	draw_map(t_mlx *mlx);
 void	update_sprite(t_mlx *mlx, void *sprite, size_t pos);
 void	replace_exits_in_map(t_mlx *mlx);
 void	update_two_cells(t_mlx *mlx, size_t old_pos, size_t new_pos);
+void	draw_scores(t_mlx *mlx);
 
 int		sprite_switcher(t_mlx *mlx);
+void	bad_final(t_mlx *mlx);
+void	good_final(t_mlx *mlx, size_t plr_pos);
+void	shadows_map(t_mlx *mlx, size_t plr_pos);
 
 void	run_game(t_mlx *mlx);
 void	end_of_game(t_mlx *mlx);
