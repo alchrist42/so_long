@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 01:11:47 by alchrist          #+#    #+#             */
-/*   Updated: 2021/10/03 16:49:54 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:26:06 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	load_textures(t_mlx *mlx, t_xpm *xpm)
 	load_one_texture(mlx->mlx, xpm->exit + 1, EXIT2_XPM);
 	load_one_texture(mlx->mlx, xpm->exit + 2, EXIT3_XPM);
 	xpm->black_square = mlx_new_image(mlx->mlx, XPM_SIZE, XPM_SIZE);
-	xpm->score_cell = mlx_new_image(mlx->mlx, XPM_SIZE * 1.5, XPM_SIZE / 2);
+	xpm->score_cell = mlx_new_image(mlx->mlx, XPM_SIZE * 1.66, XPM_SIZE / 2);
 	end_path = ft_strdup("0.xpm");
 	while (++end_path[0] < '9')
 	{

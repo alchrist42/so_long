@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 00:13:33 by alchrist          #+#    #+#             */
-/*   Updated: 2021/10/03 17:14:16 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:48:37 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	bad_final(t_mlx *mlx)
 	plr = mlx->map->plr;
 	shadows_map(mlx, plr);
 	f = 0;
-	while (++f < EXIT_TIME / 2)
+	while (++f < EXIT_TIME / 3)
 	{
 		if (f % 10)
 		{
@@ -61,12 +61,12 @@ void	good_final(t_mlx *mlx, size_t plr_pos)
 	size_t	frame;
 
 	frame = 0;
-	while (++frame <= EXIT_TIME)
+	while (++frame <= EXIT_TIME / 2)
 	{
 		if (frame % 10)
 		{
 			update_sprite(mlx, mlx->xpm->space, plr_pos);
-			if (frame <= EXIT_TIME / 2)
+			if (frame <= EXIT_TIME / 4)
 				update_sprite(mlx, mlx->xpm->player, plr_pos);
 			update_sprite(mlx, mlx->xpm->exit[frame / 10 % 2 + 1], plr_pos);
 		}
