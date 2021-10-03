@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:55:00 by alchrist          #+#    #+#             */
-/*   Updated: 2021/10/03 05:29:24 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:08:04 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	parcer(t_map *map, int argc, char **argv)
 void	init_structures(t_mlx *mlx, t_map *map)
 {
 	mlx->map = map;
-	mlx->time_cntr = 0;
-	mlx->remain_frames = 0;
+	mlx->frame = 0;
+	mlx->bear_on_fire = false;
 	mlx_get_screen_size(&mlx->res_x, &mlx->res_y);
 	map->max_width = mlx->res_x / XPM_SIZE - 1;
 	map->max_height = mlx->res_y / XPM_SIZE - 1;

@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 01:11:47 by alchrist          #+#    #+#             */
-/*   Updated: 2021/10/03 05:15:00 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/10/03 16:52:21 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	draw_map(t_mlx *mlx)
 			update_sprite(mlx, mlx->xpm->cars[0], i);
 		i++;
 	}
+	draw_scores(mlx);
 }
 
 /*
@@ -82,8 +83,28 @@ void	update_two_cells(t_mlx *mlx, size_t old_pos, size_t new_pos)
 	update_sprite(mlx, mlx->xpm->space, old_pos);
 	update_sprite(mlx, mlx->xpm->space, new_pos);
 	if (mlx->map->field[old_pos] == EXIT)
-		update_sprite(mlx, mlx->xpm->exit, old_pos);
+		update_sprite(mlx, mlx->xpm->exit[0], old_pos);
 	if (mlx->map->field[new_pos] == EXIT)
-		update_sprite(mlx, mlx->xpm->exit, new_pos);
+		update_sprite(mlx, mlx->xpm->exit[0], new_pos);
 	update_sprite(mlx, mlx->xpm->player, new_pos);
+	draw_scores(mlx);
+}
+
+void	draw_scores(t_mlx *mlx)
+{
+	char	*cntr;
+	char	*msg;
+
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->xpm->score_cell,
+		XPM_SIZE / 3, XPM_SIZE / 16);
+	cntr = ft_itoa(mlx->map->moves);
+	msg = ft_strjoin("MOVES:  ", cntr);
+	mlx_string_put(mlx->mlx, mlx->win, XPM_SIZE / 2, XPM_SIZE / 4, SCLR, msg);
+	free(cntr);
+	free(msg);
+	cntr = ft_itoa(mlx->map->fish);
+	msg = ft_strjoin("CHILDS: ", cntr);
+	mlx_string_put(mlx->mlx, mlx->win, XPM_SIZE / 2, XPM_SIZE / 2, SCLR, msg);
+	free(cntr);
+	free(msg);
 }

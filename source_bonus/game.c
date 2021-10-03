@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 01:11:47 by alchrist          #+#    #+#             */
-/*   Updated: 2021/10/03 00:42:20 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:13:02 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	run_game(t_mlx *mlx)
 
 void	end_of_game(t_mlx *mlx)
 {
-	if (!mlx->map->fish)
+	if (!mlx->map->fish && !mlx->bear_on_fire)
 		printf("You successfully saved all children from the Dark forest!\n");
-	printf("The END\n");
+	else if (mlx->bear_on_fire)
+		printf("\n\tBEAR ON FIRE!\n\n");
+	printf("\tThe END\n");
 	close_win(mlx);
 }
